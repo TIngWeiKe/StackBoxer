@@ -119,3 +119,6 @@ dialogue/stackbot_data/
 *.pptx
 *.ai
 test.js
+
+# Deploy
+deploy/

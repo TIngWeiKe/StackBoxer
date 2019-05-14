@@ -1,4 +1,4 @@
-html{
+html {
 	height: auto;
 }
 
@@ -21,7 +21,7 @@ body {
 		height: 100% !important;
 		float: left;
 	}
-	#info_msg{
+	#info_msg {
 		float: left;
 	}
 }
@@ -36,7 +36,7 @@ body {
 	.info_box {
 		height: 100% !important;
 	}
-	#info_msg{
+	#info_msg {
 		float: left;
 	}
 }
@@ -55,30 +55,27 @@ body {
 	.message-container {
 		height: 96vh !important;
 	}
-	.git{
-		position: unset !important; 
+	.git {
+		position: unset !important;
 	}
 }
 
 @media all and (max-width: 468px) {
-	.msg_icon {
-		display: none !important;
+	#message-list {
+		padding: 0.8em 1em !important;
 	}
-	.msg_cont {
-		max-width: -webkit-fill-available;
-		position: unset !important;
-		margin: 0 !important;
-	}
-	.msg_time {
-		left: 0 !important;
-		right: 0 !important;
-	}
-	#main_button{
+	#main_button {
 		font-size: 7.5vw !important;
 		padding: 15px 30px !important;
 	}
-	.git{
-		position: unset !important; 
+	.git {
+		position: unset !important;
+	}
+	.robot-message > .msg_time {
+		left: 44px;
+	}
+	.user-message > .msg_time {
+		right: 50px;
 	}
 }
 
@@ -97,8 +94,6 @@ body {
 	-webkit-overflow-scrolling: touch;
 	padding: 0.8em 1.5em;
 }
-
-
 
 .sidelist {
 	flex: 1 1 auto;
@@ -162,7 +157,7 @@ body {
 		&:active {
 			background-color: rgba(0, 0, 0, 0.6) !important;
 		}
-		
+
 		&:hover {
 			background-color: rgba(0, 0, 0, 0.2);
 		}
@@ -296,7 +291,7 @@ body {
 	height: 80px;
 	margin-bottom: 0;
 	background-color: rgba(0, 0, 0, .1);
-	
+
 	> .robot_info {
 		position: relative;
 	}
@@ -380,7 +375,7 @@ body {
 
 .info_box {
 	position: relative;
-	overflow: scroll ;
+	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	height: 90vh;
 	background-color: rgba(0, 0, 0, 0.4) !important;
@@ -389,17 +384,17 @@ body {
 	padding: 16px;
 	color: white;
 	line-height: 1.4285em;
-	
-	#info_msg{
-		width:100px;
+
+	#info_msg {
+		width: 100px;
 		position: relative;
 		display: inline;
 	}
-	
-	h1{
+
+	h1 {
 		display: inline;
 		position: relative;
-		top:20px;
+		top: 20px;
 		left: 10px;
 		margin: 0;
 		font-size: 38px;
@@ -484,22 +479,22 @@ div#wave {
 	}
 }
 
-#opening{
+#opening {
 	padding-top: 100px;
-	 #main_img{
+	#main_img {
 		margin: auto;
 		width: 50vw;
 		max-width: 250px;
 		padding: 12px;
 		border: 1.5px solid #f5f6fa;
-    border-radius: 50% !important;
-    background-color: rgba(0, 0, 0, 0.4) !important;
-		&:active{
+		border-radius: 50% !important;
+		background-color: rgba(0, 0, 0, 0.4) !important;
+		&:active {
 			transform: translate(0px, 2px);
 		}
 	}
 
-	h1{
+	h1 {
 		display: table;
 		margin: auto;
 		text-align: center;
@@ -510,38 +505,36 @@ div#wave {
 		text-shadow: 3px 2px black;
 	}
 
-	#main_button{
+	#main_button {
 		cursor: pointer;
 		background-color: rgba(0, 0, 0, 0.3);
 		border-radius: 20px;
 		margin: auto;
-		margin-top: 100px; 
+		margin-top: 100px;
 		color: white;
 		padding: 20px 40px;
 		display: table !important;
 		font-size: 34px;
-		&:hover{
+		&:hover {
 			background-color: rgba(0, 0, 0, 0.5);
 			transition: all .2s;
-			
 		}
-		&:active{
+		&:active {
 			transform: translate(0px, 2px);
 		}
-		
 	}
 }
 
-.btn_animation{
+.btn_animation {
 	animation: wave2 0.5s linear infinite;
 }
 
-.github_box{
+.github_box {
 	margin: 10px 0;
-	.content{
+	.content {
 		color: white;
 	}
-	.sub{
+	.sub {
 		color: rgba(255, 255, 255, 0.5) !important;
 	}
 	&:hover {
@@ -550,7 +543,7 @@ div#wave {
 	}
 }
 
-.git{
+.git {
 	position: absolute;
 	width: 92%;
 	padding: 5px;

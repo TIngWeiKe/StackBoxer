@@ -64,7 +64,7 @@ export default function UserInput(props){
 	async function getAnswer(text){
 		generateUserId()
 		if (text) {
-			let res = await axios.post('http://127.0.0.1:8000/api/', {
+			let res = await axios.post('api/', {
 				text: text,
 				user_id: localStorage.user_id,
 				mode: props.mode,
