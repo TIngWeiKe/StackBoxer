@@ -23,11 +23,13 @@ export default function MessageProvider({ children }){
 
 	let messageList = JSON.parse(localStorage.getItem('message'))
 	const [ input, setInput ] = useState([])
-	const reducer = useReducer(robotReducer, initRobotState)
+	const [transition, setTransition] = useState(true)
+	const botReducer = useReducer(robotReducer, initRobotState)
 	const mesReducer = useReducer(messageReducer, messageList)
+
 	return (
 		<div>
-			<MessageManger.Provider value={[ input, setInput, reducer, mesReducer ]}>{children}</MessageManger.Provider>
+			<MessageManger.Provider value={[ input, setInput, botReducer, mesReducer, {transition, setTransition} ]}>{children}</MessageManger.Provider>
 		</div>
 	)
 }

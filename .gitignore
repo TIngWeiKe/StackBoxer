@@ -122,3 +122,6 @@ test.js
 
 # Deploy
 deploy/
+
+#.DS_Store
+*.DS_Store

@@ -60,17 +60,17 @@ checkBrowsers(paths.appPath, isInteractive)
     // This lets us display how much they changed later.
     return measureFileSizesBeforeBuild(paths.appBuild);
   })
-  .then(previousFileSizes => {
+  .then(PreviousFileSizes => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
     fs.emptyDirSync(paths.appBuild);
     // Merge with the public folder
     copyPublicFolder();
     // Start the webpack build
-    return build(previousFileSizes);
+    return build(PreviousFileSizes);
   })
   .then(
-    ({ stats, previousFileSizes, warnings }) => {
+    ({ stats, PreviousFileSizes, warnings }) => {
       if (warnings.length) {
         console.log(chalk.yellow('Compiled with warnings.\n'));
         console.log(warnings.join('\n\n'));
@@ -91,7 +91,7 @@ checkBrowsers(paths.appPath, isInteractive)
       console.log('File sizes after gzip:\n');
       printFileSizesAfterBuild(
         stats,
-        previousFileSizes,
+        PreviousFileSizes,
         paths.appBuild,
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE
@@ -124,7 +124,7 @@ checkBrowsers(paths.appPath, isInteractive)
   });
 
 // Create the production build and print the deployment instructions.
-function build(previousFileSizes) {
+function build(PreviousFileSizes) {
   console.log('Creating an optimized production build...');
 
   let compiler = webpack(config);
@@ -169,7 +169,7 @@ function build(previousFileSizes) {
 
       const resolveArgs = {
         stats,
-        previousFileSizes,
+        PreviousFileSizes,
         warnings: messages.warnings,
       };
       if (writeStatsJson) {

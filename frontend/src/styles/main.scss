@@ -1,3 +1,6 @@
+$color-green: #78e08f;
+$color-blue: #82ccdd;
+
 html {
 	height: auto;
 }
@@ -93,6 +96,12 @@ body {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	padding: 0.8em 1.5em;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
+	:first-child {
+		margin-top: auto;
+	}
 }
 
 .sidelist {
@@ -100,6 +109,7 @@ body {
 	height: 90vh;
 	background-color: rgba(0, 0, 0, 0.4) !important;
 	border-radius: 15px !important;
+	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	.side_header {
 		color: white;
@@ -241,9 +251,9 @@ body {
 		position: relative;
 		left: 23px;
 		border-radius: 25px;
-		background-color: #82ccdd;
+		background-color: $color-blue;
 		padding: 10px;
-		margin: auto 10px auto 20px;
+		margin: auto 10px auto 28px;
 	}
 	> .msg_time {
 		max-width: 150px;
@@ -270,9 +280,9 @@ body {
 		float: right;
 		position: relative;
 		border-radius: 25px;
-		background-color: #78e08f;
+		background-color: $color-green;
 		padding: 10px;
-		margin: auto 10px auto 20px;
+		margin: auto 15px auto 20px;
 	}
 	> .msg_time {
 		clear: both;
@@ -549,4 +559,32 @@ div#wave {
 	padding: 5px;
 	float: left;
 	bottom: 0px;
+}
+
+.user-message > .msg_icon:after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-radius: 15px;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid $color-green;
+	top: 6px;
+	right: 41px;
+
+}
+
+.robot-message > .msg_icon:after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-radius: 15px;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid $color-blue;
+	top: 10px;
+	left: 42px;
+
 }

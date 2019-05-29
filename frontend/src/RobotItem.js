@@ -4,8 +4,11 @@ import { MessageManger } from './MessageProvider'
 
 export default function RobotItem(props){
 	const dispatch = useContext(MessageManger)[2][1]
+	const { setTransition} = useContext(MessageManger)[4]
+
 	function hanldeStateChange(data = props.data){
 		dispatch({ type: data.action, data })
+		setTransition(false)
 	}
 	return (
 		<div onClick={() => hanldeStateChange()} className='side_box'>

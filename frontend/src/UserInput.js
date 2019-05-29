@@ -8,7 +8,7 @@ import send from './sound/send.mp3'
 import receive from './sound/receive.mp3'
 const sendSound = new Audio(send)
 const receiveSound = new Audio(receive)
-export 	const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
+export const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform)
 
 export default function UserInput(props){
 	const [ input, setInput ] = useContext(MessageManger)
@@ -16,6 +16,7 @@ export default function UserInput(props){
 	const [ text, setText ] = useState('')
 	const counter = React.useRef(0)
 	const dispatch = useContext(MessageManger)[3][1]
+	const { setTransition } = useContext(MessageManger)[4]
 
 	function generateRandId(){
 		return Math.random().toString(36).replace(/[^a-z]+/g, '')
@@ -30,11 +31,11 @@ export default function UserInput(props){
 	}
 
 	function handleKeyDown(e){
-		function isIputExist(){
+		function isInputExist(){
 			return input.length - counter.current > 0
 		}
 
-		function handlePreviosInput(index){
+		function handlePreviousInput(index){
 			if (index >= 0 && input.length - index > 0) {
 				document.getElementById('textarea').value = input[index].text
 			}
@@ -45,17 +46,17 @@ export default function UserInput(props){
 			updateMessage(e.target.value)
 		}
 		//Up Button
-		if (e.keyCode === 38 && isIputExist()) {
+		if (e.keyCode === 38 && isInputExist()) {
 			e.preventDefault()
 			counter.current += 1
 			let index = input.length - counter.current
-			handlePreviosInput(index)
+			handlePreviousInput(index)
 			//Down Button
 		} else if (e.keyCode === 40 && counter.current > 1) {
 			counter.current -= 1
 			let index = input.length - counter.current
-			handlePreviosInput(index)
-			//if statement prevent previous loop
+			handlePreviousInput(index)
+			//if statement prevent Previous loop
 		} else if (e.keyCode !== 38 && e.keyCode !== 40) {
 			counter.current = 0
 		}
@@ -64,10 +65,10 @@ export default function UserInput(props){
 	async function getAnswer(text){
 		generateUserId()
 		if (text) {
-			let res = await axios.post('api/', {
+			let res = await axios.post('http://localhost:8000/api/', {
 				text: text,
 				user_id: localStorage.user_id,
-				mode: props.mode,
+				mode: props.mode
 			})
 			return res
 		}
@@ -92,33 +93,34 @@ export default function UserInput(props){
 		// Input is not Empty
 		if (text && isReturned === true) {
 			setReturn(false)
+			setTransition(true)
 			sendSound.play()
 			document.getElementById('textarea').value = ''
 			let inputMessage = {
 				text: text,
 				type: 'user',
 				time: new Date().toLocaleTimeString(),
-				id: generateRandId(),
+				id: generateRandId()
 			}
 			setInput([ ...input, inputMessage ])
 			dispatch({
 				type: props.mode,
-				message: inputMessage,
+				message: inputMessage
 			})
 			// Send Request
 			getAnswer(text).then(
-				(res) => {
+				res => {
 					// request success with status code 200
 					if (res.status === 200) {
 						let outputMessage = {
 							text: res.data.result,
 							type: 'robot',
 							time: new Date().toLocaleTimeString(),
-							id: res.data.id,
+							id: res.data.id
 						}
 						dispatch({
 							type: props.mode,
-							message: outputMessage,
+							message: outputMessage
 						})
 						if (!iOS) {
 							receiveSound.play()
@@ -128,7 +130,7 @@ export default function UserInput(props){
 						init()
 					}
 				},
-				(error) => {
+				error => {
 					setReturn(true)
 				}
 			)
@@ -137,7 +139,7 @@ export default function UserInput(props){
 
 	return (
 		<div className='user-input'>
-			<input id='textarea' type='text' placeholder='Type your message...' onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => setText(e.target.value)} />
+			<input id='textarea' type='text' placeholder='Type your message...' onKeyDown={e => handleKeyDown(e)} onChange={e => setText(e.target.value)} />
 			<i onClick={() => updateMessage(text)} className='submit'>
 				<Image className='enterIcon' src={enterIcon} />
 			</i>

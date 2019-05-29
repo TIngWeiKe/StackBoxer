@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'chatbox.cc',
-    '127.0.0.1'
+    '127.0.0.1',
+    'localhost'
 ]
 
 

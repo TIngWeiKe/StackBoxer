@@ -8,17 +8,17 @@ import { MessageManger } from './MessageProvider'
 function MessageRobotItem(props){
 	// ref = HTML DOM <div className='msg_icon'>
 	const ref = useRef()
-	let contentPressTimer;
+	let contentPressTimer
 
-  function handleContentPress() {
-    contentPressTimer = setTimeout(() => props.setToggle(!props.toggle), 800);
-  }
+	function handleContentPress(){
+		contentPressTimer = setTimeout(() => props.setToggle(!props.toggle), 800)
+	}
 
-  function handleContentRelease() {
-    clearTimeout(contentPressTimer);
-  }
+	function handleContentRelease(){
+		clearTimeout(contentPressTimer)
+	}
 
-	const handleClickOutside = (e) => {
+	const handleClickOutside = e => {
 		if (ref.current && !ref.current.contains(e.target)) {
 			props.setToggle(false)
 		}
@@ -32,19 +32,18 @@ function MessageRobotItem(props){
 	})
 
 	return (
-		<Transition key={props.key} transitionOnMount={true} animation='scale' duration={400}>
+		<Transition key={props.key} transitionOnMount={props.isShow} animation='scale' duration={400}>
 			<div className='robot-message'>
 				<div ref={ref} className='msg_icon'>
 					<Image className='circle clickable' src={props.icon} onClick={() => props.setToggle(!props.toggle)} />
 				</div>
-				
-				<div className='msg_cont' onTouchStart={handleContentPress}  onTouchEnd={handleContentRelease}>
-					<Linkify>{props.props.data}</Linkify>
+				<div className='msg_cont' onTouchStart={handleContentPress} onTouchEnd={handleContentRelease}>
+					<Linkify>{props.data}</Linkify>
 				</div>
-				<div style={props.toggle ? { display: 'unset' } : { display: 'none' }} className='robot_dropdown' onClick={() => props.handleDeleteMsg(props.props.index, props.robotState.mode)}>
+				<div style={props.toggle ? { display: 'unset' } : { display: 'none' }} className='robot_dropdown' onClick={() => props.handleDeleteMsg(props.index, props.robotState.mode)}>
 					Delete
 				</div>
-				<div className='msg_time'>{props.props.time}</div>
+				<div className='msg_time'>{props.time}</div>
 			</div>
 		</Transition>
 	)
@@ -52,21 +51,21 @@ function MessageRobotItem(props){
 
 function MessageUserItem(props){
 	const ref = useRef()
-	let contentPressTimer;
-	
-	const handleClickOutside = (e) => {
+	let contentPressTimer
+
+	const handleClickOutside = e => {
 		if (ref.current && !ref.current.contains(e.target)) {
 			props.setToggle(false)
 		}
 	}
 
-	function handleContentPress() {
-    contentPressTimer = setTimeout(() => props.setToggle(!props.toggle), 800);
-  }
+	function handleContentPress(){
+		contentPressTimer = setTimeout(() => props.setToggle(!props.toggle), 800)
+	}
 
-  function handleContentRelease() {
-    clearTimeout(contentPressTimer);
-  }
+	function handleContentRelease(){
+		clearTimeout(contentPressTimer)
+	}
 
 	useEffect(() => {
 		document.addEventListener('click', handleClickOutside, true)
@@ -76,18 +75,18 @@ function MessageUserItem(props){
 	})
 
 	return (
-		<Transition key={props.key} transitionOnMount={true} animation='scale' duration={400}>
+		<Transition key={props.key} transitionOnMount={props.isShow} animation='scale' duration={400}>
 			<div className='user-message'>
-				<div ref={ref}  className='msg_icon'>
+				<div ref={ref} className='msg_icon'>
 					<Image className='circle clickable' src={userIcon} onClick={() => props.setToggle(!props.toggle)} />
 				</div>
-				<div className='msg_cont' onTouchStart={handleContentPress}  onTouchEnd={handleContentRelease}>
-					<Linkify>{props.props.data}</Linkify>
+				<div className='msg_cont' onTouchStart={handleContentPress} onTouchEnd={handleContentRelease}>
+					<Linkify>{props.data}</Linkify>
 				</div>
-				<div style={props.toggle ? { display: 'unset' } : { display: 'none' }} className='user_dropdown' onClick={() => props.handleDeleteMsg(props.props.index, props.robotState.mode)}>
-						Delete
+				<div style={props.toggle ? { display: 'unset' } : { display: 'none' }} className='user_dropdown' onClick={() => props.handleDeleteMsg(props.index, props.robotState.mode)}>
+					Delete
 				</div>
-				<div className='msg_time'>{props.props.time}</div>
+				<div className='msg_time'>{props.time}</div>
 			</div>
 		</Transition>
 	)
@@ -102,23 +101,5 @@ export default function MessageItem(props){
 		messageDispatch({ type: 'DELETE_ITEM', index: index, mode: `${mode}Message` })
 	}
 
-	const icon = props.icon
-	return props.type === 'user' ?
-	 <MessageUserItem  
-		props={props} 
-		toggle={toggle} 
-		messageDispatch={messageDispatch} 
-		handleDeleteMsg={handleDeleteMsg} 
-		setToggle={setToggle} 
-		robotState={robotState}  
-	 /> : 
-	 <MessageRobotItem 
-		props={props} 
-		icon={icon} 
-		toggle={toggle} 
-		messageDispatch={messageDispatch} 
-		handleDeleteMsg={handleDeleteMsg} 
-		setToggle={setToggle} 
-		robotState={robotState} 
-	/>
+	return props.type === 'user' ? <MessageUserItem {...props} handleDeleteMsg={handleDeleteMsg} robotState={robotState} setToggle={setToggle} toggle={toggle} /> : <MessageRobotItem {...props} handleDeleteMsg={handleDeleteMsg} robotState={robotState} setToggle={setToggle} toggle={toggle} />
 }
